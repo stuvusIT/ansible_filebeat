@@ -1,0 +1,42 @@
+---
+
+- name: Install apt-transport-https
+  become: yes
+  apt: 
+    name: "{{ item }}"
+  with_items:
+    - apt-transport-https
+
+- name: Add Elasticsearch repository key
+  become: yes
+  apt_key: 
+    url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+- name: Add filebeat repository
+  become: yes
+  apt_repository: 
+    repo: deb https://artifacts.elastic.co/packages/6.x/apt stable main
+
+- name: Ensure filebeat is installed
+  become: yes
+  apt: 
+    name: filebeat
+
+- name: Place filebeat config file
+  copy:
+    content: "{{ filebeat_config | to_nice_yaml }}"
+    dest: /etc/filebeat/filebeat.yml
+  notify: Restart filebeat
+
+- name: Place filebeat module configs file
+  copy:
+    content: "{{ item.config | to_nice_yaml }}"
+    dest: "/etc/filebeat/modules.d/{{ item.name }}.yml"
+  notify: Restart filebeat
+  with_items: "{{ filebeat_modules }}"
+
+- name: Enable filebeat
+  systemd:
+    name: filebeat
+    enabled: yes
+    state: started
