@@ -1,7 +1,6 @@
 ---
 
 - name: Install apt-transport-https
-  become: yes
   apt: 
     name: "{{ item }}"
   with_items:
@@ -13,7 +12,6 @@
     url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
 
 - name: Add filebeat repository
-  become: yes
   apt_repository: 
     repo: deb https://artifacts.elastic.co/packages/6.x/apt stable main
 

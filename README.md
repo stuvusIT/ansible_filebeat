@@ -10,13 +10,13 @@ An apt based linux system
 ## Role Variables
 
 
-| Variable           | Default / Mandatory                                             | Description                                                                                                                                                                                                                                              |
-|--------------------|-----------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `filebeat_config`  | `{ path: { logs: /var/log/filebeat, data: /var/lib/filebeat }}` | Since the filebeat settings file is a yaml file we write the whole object to the settings file. For more Information please see the [filebeat settings file documentation](https://www.elastic.co/guide/en/filebeat/current/filebeat-settings-file.html) |
-| `filebeat_modules` | `{}`                                                            | Dictionary of config files to write to modules.d/. More information below.                                                                                                                                                                               |
+| Variable           | Default / Mandatory                                                                                                                                  | Description                                                                                                                                                                                                                                              |
+|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `filebeat_config`  | `{ output.elasticsearch: { hosts: ["localhost:9200"] }, filebeat.config.modules: { path: ${path.config}/modules.d/*.yml , reload.enabled: false } }` | Since the filebeat settings file is a yaml file we write the whole object to the settings file. For more Information please see the [filebeat settings file documentation](https://www.elastic.co/guide/en/filebeat/current/filebeat-settings-file.html) |
+| `filebeat_modules` | `[]`                                                                                                                                                 | List of config files to write to modules.d/. More information below.                                                                                                                                                                                     |
 
 ### `filebeat_modules`
-Each entry in the `filebeat_modules` consits out of the following entries.
+Each entry in the `filebeat_modules` consists out of the following entries.
 | Variable | Default / Mandatory | Description                                                                              |
 |----------|---------------------|------------------------------------------------------------------------------------------|
 | `name`   | :heavy_check_mark:  | Name of the module config file. This value has to be the same as the name of the module. |
