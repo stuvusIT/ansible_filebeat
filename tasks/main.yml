@@ -28,10 +28,10 @@
 
 - name: Place filebeat module configs file
   copy:
-    content: "{{ item.config | to_nice_yaml }}"
-    dest: "/etc/filebeat/modules.d/{{ item.name }}.yml"
+    content: "{{ item.value | to_nice_yaml }}"
+    dest: "/etc/filebeat/modules.d/{{ item.key }}.yml"
   notify: Restart filebeat
-  with_items: "{{ filebeat_modules }}"
+  with_dict: "{{ filebeat_modules }}"
 
 - name: Enable filebeat
   systemd:
