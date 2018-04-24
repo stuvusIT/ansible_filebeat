@@ -17,7 +17,7 @@ An apt based linux system
 
 ### `filebeat_modules`
 Each entry in the `filebeat_modules` consists out of the following entries.
-The key of each entry is used to determine the name of the config file and the content of the entry is writen to the config file
+The key of each entry is used to determine the name of the config file and the content of the entry is written to the config file.
 
 ## Example Playbook
 
