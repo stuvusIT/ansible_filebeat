@@ -1,0 +1,9 @@
+filebeat_config:
+  output.elasticsearch:
+    hosts: ["localhost:9200"]
+  filebeat.config.modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: false
+filebeat_modules: {}
+
+
