@@ -2,9 +2,7 @@
 
 - name: Install apt-transport-https
   apt: 
-    name: "{{ item }}"
-  with_items:
-    - apt-transport-https
+    name: "apt-transport-https"
 
 - name: Add Elasticsearch repository key
   apt_key: 
@@ -15,8 +13,9 @@
     repo: deb https://artifacts.elastic.co/packages/6.x/apt stable main
 
 - name: Ensure filebeat is installed
-  apt: 
+  apt:
     name: filebeat
+  notify: Reinstall index to elasticsearch
 
 - name: Place filebeat config file
   copy:
@@ -25,8 +24,8 @@
   notify: Restart filebeat
 
 - name: Place filebeat module configs file
-  copy:
-    content: "{{ item.value | to_nice_yaml }}"
+  template:
+    src: "module.yml.j2"
     dest: "/etc/filebeat/modules.d/{{ item.key }}.yml"
   notify: Restart filebeat
   with_dict: "{{ filebeat_modules }}"

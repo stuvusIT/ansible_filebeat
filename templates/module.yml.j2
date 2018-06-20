@@ -1,0 +1,5 @@
+---
+# {{ ansible_managed }}
+- module: {{ item.key }}
+  {{ item.value | to_nice_yaml | indent(2) }}
+

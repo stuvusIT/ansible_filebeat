@@ -1,5 +1,11 @@
 ---
+- name: Reinstall index to elasticsearch
+  shell: |
+    "filebeat setup --template -E output.logstash.enabled=false -E 'output.elasticsearch.hosts={{ filebeat_elasticsearch.hosts | to_nice_yaml }}' -E 'output.elasticsearch.username={{ filebeat_elasticsearch.username }} -E 'output.elasticsearch.password={{ filebeat_elasticsearch.password }}"
+  args:
+    chdir: "/etc/filebeat"
+
 - name: Restart filebeat
-  systemd: 
+  systemd:
     state: restarted
     name: filebeat
