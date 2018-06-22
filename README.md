@@ -32,7 +32,7 @@ The key of each entry is used to determine the name of the config file and the c
       output.logstash:
         hosts: ["localhost:5044"]
     filebeat_modules:
-      - module: nginx
+      nginx:
         access:
           enabled: true
         error:
