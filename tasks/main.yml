@@ -1,15 +1,15 @@
 ---
 
 - name: Install apt-transport-https
-  apt: 
+  apt:
     name: "apt-transport-https"
 
 - name: Add Elasticsearch repository key
-  apt_key: 
+  apt_key:
     url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
 
 - name: Add filebeat repository
-  apt_repository: 
+  apt_repository:
     repo: deb https://artifacts.elastic.co/packages/6.x/apt stable main
 
 - name: Ensure filebeat is installed
